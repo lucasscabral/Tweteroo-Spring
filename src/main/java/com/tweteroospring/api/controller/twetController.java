@@ -49,7 +49,7 @@ public class twetController {
   public Object getTwetByUserName(@PathVariable String userName) {
     Object twetsUser = service.getTwetByUserName(userName);
     if (twetsUser.equals("usuario nao existe")) {
-      return ResponseEntity.status(404).body("Esse usu");
+      return ResponseEntity.status(404).body("Esse usuário não existe");
     } else {
       return twetsUser;
     }
