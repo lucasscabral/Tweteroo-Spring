@@ -20,9 +20,7 @@ public class userService {
   }
 
   public String createUser(userDTO req) {
-    System.out.println(req);
     List<userModel> user = repository.findByUserName(req.userName());
-    System.out.println(user.isEmpty());
 
     if (user.isEmpty()) {
       repository.save(new userModel(req));
