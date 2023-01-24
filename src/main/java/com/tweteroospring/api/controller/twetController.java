@@ -17,6 +17,7 @@ import com.tweteroospring.api.model.userModel;
 import com.tweteroospring.api.service.twetService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,7 +31,7 @@ public class twetController {
 
   @GetMapping
   public ResponseEntity<Page<twetModel>> getTwets(@PageableDefault(size = 5) Pageable pageable) {
-    return ResponseEntity.ok(service.getTwets(pageable));
+    return ResponseEntity.ok(service.getAllTwets(pageable));
   }
 
   @PostMapping
@@ -42,6 +43,16 @@ public class twetController {
 
     return ResponseEntity.status(201).body("Criado com sucesso");
 
+  }
+
+  @GetMapping("/{userName}")
+  public Object getTwetByUserName(@PathVariable String userName) {
+    Object twetsUser = service.getTwetByUserName(userName);
+    if (twetsUser.equals("usuario nao existe")) {
+      return ResponseEntity.status(404).body("Esse usu");
+    } else {
+      return twetsUser;
+    }
   }
 
 }

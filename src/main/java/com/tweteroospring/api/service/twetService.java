@@ -21,19 +21,26 @@ public class twetService {
   @Autowired
   private userRepository userRepository;
 
-  public Page<twetModel> getTwets(Pageable pageable) {
+  public Page<twetModel> getAllTwets(Pageable pageable) {
     return repository.findAll(pageable);
   }
 
   public String createTwet(twetDTO twet) {
     List<userModel> user = userRepository.findByUserName(twet.userName());
     if (user.isEmpty()) {
-      System.out.println(user);
       return "não existe";
     } else {
-      System.out.println(user);
       repository.save(new twetModel(twet, user.get(0)));
       return "existe";
+    }
+  }
+
+  public Object getTwetByUserName(String userName) {
+    List<userModel> user = userRepository.findByUserName(userName);
+    if (user.isEmpty()) {
+      return "usuario nao existe";
+    } else {
+      return repository.findByUserName(userName);
     }
   }
 
